@@ -1,59 +1,58 @@
 <div class="addon-column row align-items-center">
   <div class="thumbnail-container">
-    <div *ngIf="listItem.hasThumbnail === true" class="addon-logo-container bg-secondary-3">
-      <img [src]="listItem.addon.thumbnailUrl" loading="lazy" />
+    <div *ngIf="hasThumbnail === true" class="addon-logo-container bg-secondary-3">
+      <img [src]="thumbnailUrl" loading="lazy" />
     </div>
-    <div *ngIf="listItem.hasThumbnail === false" class="addon-logo-container">
+    <div *ngIf="hasThumbnail === false" class="addon-logo-container">
       <div class="addon-logo-letter text-3">
-        {{ listItem.thumbnailLetter }}
+        {{ thumbnailLetter }}
       </div>
     </div>
-    <div *ngIf="listItem.isBetaChannel() || listItem.isAlphaChannel()" class="channel bg-secondary-3" [ngClass]="{
-        beta: listItem.isBetaChannel(),
-        alpha: listItem.isAlphaChannel()
+    <div *ngIf="isBetaChannel === true || isAlphaChannel === true" class="channel bg-secondary-3" [ngClass]="{
+        beta: isBetaChannel,
+        alpha: isAlphaChannel
       }">
-      {{ listItem.isAlphaChannel() ? "Alpha" : "Beta" }}
+      {{ isAlphaChannel ? "Alpha" : "Beta" }}
     </div>
   </div>
   <div>
-    <a class="addon-title hover-text-2 mat-subheading-2" (click)="viewDetails()"
-      [ngClass]="{ 'text-3': listItem.addon.isIgnored }">{{
-      listItem.addon.name
+    <a class="addon-title hover-text-2 mat-subheading-2" (click)="viewDetails()" [ngClass]="{ 'text-3': isIgnored }">{{
+      addonName
       }}</a>
-    <div *ngIf="listItem.addon.fundingLinks" class="addon-funding row">
-      <app-funding-button *ngFor="let link of listItem.addon.fundingLinks" [funding]="link" size="small">
+    <div *ngIf="hasFundingLinks === true" class="addon-funding row">
+      <app-funding-button *ngFor="let link of fundingLinks" [funding]="link" size="small">
       </app-funding-button>
     </div>
-    <div class="addon-version text-2 row align-items-center" [ngClass]="{ ignored: listItem.addon.isIgnored }">
-      <div *ngIf="addonUtils.hasMultipleProviders(listItem.addon)" class="mr-2">
+    <div class="addon-version text-2 row align-items-center" [ngClass]="{ ignored: isIgnored }">
+      <div *ngIf="hasMultipleProviders === true" class="mr-2">
         <mat-icon class="auto-update-icon" svgIcon="fas:code-branch"
           [matTooltip]="'PAGES.MY_ADDONS.MULTIPLE_PROVIDERS_TOOLTIP' | translate">
         </mat-icon>
       </div>
-      <div *ngIf="listItem.addon.autoUpdateEnabled === true" class="mr-2">
+      <div *ngIf="autoUpdateEnabled === true" class="mr-2">
         <mat-icon class="auto-update-icon text-2"
           [matTooltip]="'PAGES.MY_ADDONS.TABLE.AUTO_UPDATE_ICON_TOOLTIP' | translate" svgIcon="far:clock">
         </mat-icon>
       </div>
-      <div *ngIf="hasRequiredDependencies()" class="mr-2"
+      <div *ngIf="hasRequiredDependencies === true" class="mr-2"
         [matTooltip]="'COMMON.DEPENDENCY.TOOLTIP' | translate: dependencyTooltip">
         <mat-icon class="auto-update-icon" svgIcon="fas:link"></mat-icon>
       </div>
-      <div *ngIf="listItem.isLoadOnDemand === true" class="mr-2">
+      <div *ngIf="isLoadOnDemand === true" class="mr-2">
         <mat-icon class="auto-update-icon"
           [matTooltip]="'PAGES.MY_ADDONS.REQUIRED_DEPENDENCY_MISSING_TOOLTIP' | translate" [style.color]="'#ff9800'"
           svgIcon="fas:exclamation-triangle">
         </mat-icon>
       </div>
-      <div *ngIf="hasIgnoreReason() === true" class="mr-2">
-        <mat-icon class="auto-update-icon" [matTooltip]="getIgnoreTooltipKey() | translate" [style.color]="'#ff9800'"
-          [svgIcon]="getIgnoreIcon()">
+      <div *ngIf="hasIgnoreReason === true" class="mr-2">
+        <mat-icon class="auto-update-icon" [matTooltip]="ignoreTooltipKey | translate" [style.color]="'#ff9800'"
+          [svgIcon]="ignoreIcon">
         </mat-icon>
       </div>
-      {{ listItem.addon.installedVersion }}
-      <div class="update-available row" *ngIf="showUpdateToVersion && listItem.needsUpdate">
+      {{ installedVersion }}
+      <div class="update-available row" *ngIf="showUpdateToVersion && needsUpdate">
         <mat-icon class="upgrade-icon" svgIcon="fas:play"></mat-icon>
-        <div>{{ listItem.addon.latestVersion }}</div>
+        <div>{{ latestVersion }}</div>
       </div>
     </div>
   </div>

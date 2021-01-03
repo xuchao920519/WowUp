@@ -532,18 +532,32 @@ export class MyAddonsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   public onClickIgnoreAddons(evt: MatCheckboxChange, listItems: AddonViewModel[]) {
-    listItems.forEach((listItem) => {
-      // if provider is not valid (Unknown) then ignore this
-      if (!this.addonService.isValidProviderName(listItem.addon.providerName)) {
-        return;
-      }
-
+    const dataCopy = [...this.dataSource.data];
+    for (let listItem of listItems) {
+      const dataIndex = dataCopy.findIndex((data) => data.addon.id === listItem.addon.id);
       listItem.addon.isIgnored = evt.checked;
       if (evt.checked) {
         listItem.addon.autoUpdateEnabled = false;
       }
+
       this.addonService.saveAddon(listItem.addon);
-    });
+      dataCopy[dataIndex] = new AddonViewModel(listItem.addon);
+    }
+
+    this.dataSource.data = dataCopy;
+
+    // listItems.forEach((listItem) => {
+    //   // if provider is not valid (Unknown) then ignore this
+    //   if (!this.addonService.isValidProviderName(listItem.addon.providerName)) {
+    //     return;
+    //   }
+
+    //   listItem.addon.isIgnored = evt.checked;
+    //   if (evt.checked) {
+    //     listItem.addon.autoUpdateEnabled = false;
+    //   }
+    //   this.addonService.saveAddon(listItem.addon);
+    // });
 
     if (!this.sort.active) {
       this.sortTable(this.dataSource);
