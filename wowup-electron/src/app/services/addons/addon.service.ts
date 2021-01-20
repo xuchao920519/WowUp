@@ -34,6 +34,7 @@ import { AddonStorageService } from "../storage/addon-storage.service";
 import { TocService } from "../toc/toc.service";
 import { WarcraftService } from "../warcraft/warcraft.service";
 import { WowUpService } from "../wowup/wowup.service";
+import { WowUpApiService } from "../wowup-api/wowup-api.service";
 import { AddonProviderFactory } from "./addon.provider.factory";
 
 export enum ScanUpdateType {
@@ -81,7 +82,8 @@ export class AddonService {
     private _downloadService: DownloadService,
     private _fileService: FileService,
     private _tocService: TocService,
-    private _addonProviderFactory: AddonProviderFactory
+    private _addonProviderFactory: AddonProviderFactory,
+    private _wowUpApiService: WowUpApiService
   ) {
     this._addonProviders = [
       this._addonProviderFactory.createCurseAddonProvider(),

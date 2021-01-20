@@ -31,6 +31,7 @@ import { ElectronService } from "../services";
 import { CachingService } from "../services/caching/caching-service";
 import { AddonProvider } from "./addon-provider";
 import { AppConfig } from "environments/environment";
+import { WowUpApiService } from "app/services/wowup-api/wowup-api.service";
 
 const API_URL = "https://addons-ecs.forgesvc.net/api/v2";
 
@@ -46,7 +47,8 @@ export class CurseAddonProvider implements AddonProvider {
   constructor(
     private _httpClient: HttpClient,
     private _cachingService: CachingService,
-    private _electronService: ElectronService
+    private _electronService: ElectronService,
+    private _wowUpApiService: WowUpApiService
   ) {
     this._circuitBreaker = new CircuitBreaker((action) => this.sendRequest(action), {
       resetTimeout: 60000,
@@ -210,6 +212,7 @@ export class CurseAddonProvider implements AddonProvider {
 
     const addonResults: AddonSearchResult[] = [];
     const searchResults = await this.getAllIds(addonIds.map((id) => parseInt(id, 10)));
+    const blockList = await this._wowUpApiService.getBlockList().toPromise();
 
     for (let result of searchResults) {
       const latestFiles = this.getLatestFiles(result, clientType);
