@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Hello World!</title>
+  <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+  <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' unsafe-inline" /> -->
+  <!-- <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self' unsafe-inline" /> -->
+  <link href="dist/public/app.css" rel="stylesheet">
+</head>
+
+<body>
+  <div class="main-actions">
+    <ul id="main-action-list" class="action-list flex-grow-1">
+    </ul>
+    <ul class="action-list flex-shrink-0">
+      <li class="action-item" title="Settings">
+        <img src="dist/public/images/settings_white_18dp.svg">
+      </li>
+    </ul>
+  </div>
+  <div class="main-content">
+    <h1>Hello World!</h1>
+    We are using Node.js <span id="node-version"></span>, Chromium
+    <span id="chrome-version"></span>, and Electron
+    <span id="electron-version"></span>.
+  </div>
+
+
+  <template id="extension-action">
+    <li class="action-item">
+      <img class="action-icon">
+    </li>
+  </template>
+
+  <!-- You can also require other files to run in this process -->
+  <script>var exports = { "__esModule": true };</script>
+  <script src="./dist/renderer/index.js"></script>
+</body>
+
+</html>

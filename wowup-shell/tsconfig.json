@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2015",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "sourceMap": true,
+    "outDir": "dist",
+    "baseUrl": ".",
+    "lib": ["ES2015", "DOM"],
+    "paths": {
+      "*": ["node_modules/*"]
+    }
+  },
+  "include": ["src/**/*"]
+}
+
+// {
+//   "extends": "./node_modules/electron-webpack/tsconfig-base.json",
+//   "compilerOptions": {
+//     "module": "commonjs"
+//   }
+// }

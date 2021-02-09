@@ -1,0 +1,15 @@
+{
+  "name": "test-wowup-ext",
+  "version": "1.0.0",
+  "description": "Example WowUp extension",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "WowUp",
+  "license": "ISC",
+  "wowup": {
+    "icon": "wowup_white_lg_nopad.png"
+  }
+}
